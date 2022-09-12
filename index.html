@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+<title>Air Parcel Builder</title>
+<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		.slider {
+		  width: 80%;
+		  text-align: center;
+		  overflow: hidden;
+		}
+
+		.slides {
+		  display: flex;
+		  overflow-x: auto;
+		  overflow-y:auto;
+		  scroll-snap-type: x mandatory;
+		  scroll-behavior: smooth;
+		  -webkit-overflow-scrolling: touch;
+		  /*
+		  scroll-snap-points-x: repeat(300px);
+		  scroll-snap-type: mandatory;
+		  */
+		  width: 100%;
+		  	  border: 0.2rem solid #d4e6f1;
+		}
+		.slides::-webkit-scrollbar {
+		  width: 10px;
+		  height: 10px;
+		}
+		.slides::-webkit-scrollbar-thumb {
+		  background: #1f618d;
+		  border-radius: 10px;
+		}
+		.slides::-webkit-scrollbar-track {
+		  background: transparent;
+		}
+		.slides > div {
+		  scroll-snap-align: start;
+		  flex-shrink: 0;
+		  width: 100%;
+		  height: 80vh;
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  background: white;//  #eaf2f8;
+		  transform-origin: center center;
+		  transform: scale(1);
+		  transition: transform 0.5s;
+		  position: relative;
+	
+		  //display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  font-size: 1rem;
+		  padding: 1rem;
+		  text-align: justify;
+		  text-justify: inter-word;
+
+		}
+		.slides > div:target {
+		/*   transform: scale(0.8); */
+		}
+		.author-info {
+		  background: rgba(0, 0, 0, 0.75);
+		  color: white;
+		  padding: 0.75rem;
+		  text-align: center;
+		  position: absolute;
+		  bottom: 0;
+		  left: 0;
+		  width: 100%;
+		  margin: 0;
+		}
+		.author-info a {
+		  color: white;
+		}
+		//img {
+		//  object-fit: cover;
+		//  position: absolute;
+		//  top: 0;
+		//  left: 0;
+		//  width: 100%;
+		//  height: 100%;
+		//}
+
+		.slider > a {
+		  display: inline-flex;
+		  width: auto;
+		  height: 1.5rem;
+		  text-decoration: none;
+		  align-items: center;
+		  justify-content: center;
+		  margin: 0 0 0.5rem 0;
+		  position: relative;
+
+		  color:  #1f618d;
+		  background-color:  #d4e6f1;
+		  border-radius: 0.5rem;
+		  padding: 1rem;
+		}
+		.slider > a:active {
+		  top: 1px;
+		}
+		.slider > a:focus {
+		  background: #000;
+		}
+
+		/* Don't need button navigation */
+		@supports (scroll-snap-type) {
+		  .slider > a {
+			display: none;
+		  }
+		}
+
+		html, body {
+		  height: 100%;
+		  width:100%;
+		  overflow-x: hidden;
+		  margin-left: 5%;
+		  margin-right: 5%;
+		  overflow-y:auto;//hidden; //scroll;
+		  font-family: "Lato", sans-serif;
+		  font-family: 'Ropa Sans', sans-serif;
+		}
+
+		.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		// top nav bar
+		/* Add a black background color to the top navigation */
+		  .topnav {
+			background-color: #333;
+			overflow: hidden;
+		  }
+
+		  /* Style the links inside the navigation bar */
+		  .topnav a {
+			float: left;
+			color:   #3498db ;
+			text-align: center;
+			padding: 0.5rem 0.5rem;
+			margin-bottom:0.5rem;
+			text-decoration: none;
+			font-size: 1rem;
+		  }
+
+		  /* Change the color of links on hover */
+		  .topnav a:hover {
+			background-color:  #d6eaf8 ;
+			color: black;
+		  }
+
+		  /* Add a color to the active/current link */
+		  .topnav a.active {
+			background-color: #1f618d;
+			color: white;
+		  }
+		
+		h1,h2,h3,h4 {	
+		color: #005A9C;
+		}
+		
+		h1 {
+			padding-top: 4rem;
+		}
+		
+		h2,h3,h4 {	
+		padding-top: 1rem;
+		}
+		
+		@media (max-width: 767px) {
+		  .adjust-height {
+			height: auto;
+		  }
+		}
+
+		@media (min-width: 768px) {
+		  .adjust-height {
+			height: 50%;
+		  }
+		}
+
+		.card-slot{
+			background-color: #f2f4f4;
+			margin:0.2rem;
+			border-style: dashed;
+			font-size: 1.2rem;
+			line-height: 1.5;
+			border-radius: 10px;
+			text-align:center;
+			//height:25vh;
+	
+		}
+
+		.card-picker{
+			background-color: #f2f4f4;
+			margin:0.2rem;
+			font-size: 2rem;
+			line-height: 1.5;
+			border-radius: 10px;
+			height:18vh;
+		}
+
+
+</style>
+
+</head>
+<body>
+<!--
+<div class="topnav">
+  <a class="active">Linking Air Quality and Health</a>
+  <a href=" " >Restart</a>
+</div>
+-->
+<div class="slider">
+	<!--
+  <a href="#slide-1">1</a>
+  <a href="#slide-2">2</a>
+  <a href="#slide-3">3</a>
+  <a href="#slide-4">4</a>
+  <a href="#slide-5">5</a>
+  -->
+
+  <div class="slides">
+	
+    <div id="slide-1"  style="text-align: center;">
+      <h1>Linking Air Quality and Health</h1>
+      <img alt="AirParcel02" class="center" src="assets/serdif-icon.png" style="width:30%;" class="center">
+      <p></p>
+      By Albert Navarro-Gallinad
+      <p></p>
+      <h5 style="color:grey">Researchers Night Activity
+      <br>
+      30th September 2022 </h5>
+      <a href="#slide-2" class="btn btn-primary center" style="white-space: normal;">Start</a>
+      <p></p>
+      <div class="alert alert-info" role="alert">
+				  Number of games played:  <p id="CounterVisitor" style="display:inline-block; margin-bottom:-1rem;"></p>			  
+	   </div> 
+
+		<script>
+		var n = localStorage.getItem('on_load_counter');
+
+		if (n === null) {
+		  n = 0;
+		}
+		n++;
+
+		localStorage.setItem("on_load_counter", n);
+
+		nums = n.toString().split('').map(Number);
+		document.getElementById('CounterVisitor').innerHTML = '';
+		for (var i of nums) {
+		  document.getElementById('CounterVisitor').innerHTML += '<span class="counter-item">' + i + '</span>';
+		}
+
+		</script>
+
+      
+    </div>
+    
+    <div id="slide-2">		
+		<h4 class="text-center" style="margin-top:-1rem">What is air quality?</h4>
+		<p>
+		Air quality is a measure of how clean or polluted the air is.
+		Polluted air can be bad for our health and the environment we live in.
+		For example, toxic particles can go into our lungs and blood putting us at risk of having a disease.
+		</p>
+		
+		<div class="container-fluid" >
+            <div class="row justify-content-center">      
+				<img src="assets/AQLR-good-air-icon.png" alt="person-air"  style="width:30%;" >			       
+                <img src="assets/AQLR-health-econ-ecosys-icon.png" alt="forest-pollution" style="width:30%;">                            
+                <img src="assets/AQLR-personal-exposure-icon.png" alt="city-pollution" style="width:30%;">
+
+            </div>
+		</div>
+		<p></p>
+		<p>Image source: <a href="https://www.pca.state.mn.us/air/air-we-breathe">Minnesota PCA</a>.</p>
+		 <a href="#slide-3"  class="btn btn-primary center">Next</a>
+		  
+    </div>
+    <div id="slide-3">
+      <h4 class="text-center" style="margin-top:-1rem">How can doctors use air quality information for our health?</h4>
+		<p>
+		Doctors can link air quality information from our environment with health events to study the origin of the problems.
+		</p>
+		<p>
+		But linking the information can be difficult. That is why, computer scientists help doctors by making 
+		the link easy for them.
+		</p>	
+		<div class="container-fluid" >
+            <div class="row justify-content-center">				
+				<img src="assets/collaboration-icon.png" alt="person-air"  style="width:90%;" >
+				<p>Image source: <a href="https://usabilitygeek.com/remote-usability-testing-best-practices/">Usability Geek</a>.</p>
+				 <a href="#slide-4" class="btn btn-primary btn-block center">Let's try to be a computer scientist!</a>
+            </div> 
+		</div>
+    </div>
+    <div id="slide-4">
+		<div class="container">
+            <h4 class="text-center" style="margin-top:-1rem">Link air quality and health</h4>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Health event:</label>
+				  </div>
+				  <select class="custom-select" id="inputGroupSelect01" class="form-control" required>
+					<option selected disabled value="">Choose...</option>
+					<option value="Laura">Laura</option>
+					<option value="John">John</option>
+					<option value="Alex">Alex</option>
+					<option value="Anna">Anna</option>
+					<option value="George">George</option>
+				  </select>
+				  <select class="custom-select" id="inputGroupSelect02" class="form-control" required>
+					<option selected disabled>Choose...</option>
+					<option value="bad">Feeling bad</option>
+					<option value="good">Feeling good</option>
+				  </select>
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect03">Month:</label>
+				  </div>
+				  <select class="custom-select" id="inputGroupSelect03" class="form-control" required>
+					<option selected disabled>Choose...</option>
+					<option value="January">January</option>
+					<option value="February">February</option>
+					<option value="March">March</option>
+					<option value="April">April</option>
+					<option value="May">May</option>
+					<option value="June">June</option>
+					<option value="July">July</option>
+					<option value="August">August</option>
+					<option value="September">September</option>
+					<option value="October">October</option>
+					<option value="November">November</option>
+					<option value="December">December</option>
+				  </select>
+				</div>
+				<p>	Select the country, place, weather and pollution related to the health event.</p>
+				<div class="row"> 
+			  <div class="col card-slot">  
+				<div id="carouselCountry" class="carousel slide" data-interval="false">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselCountry" data-slide-to="ie" class="active"></li>
+						<li data-target="#carouselCountry" data-slide-to="uk"></li>
+						<li data-target="carouselCountry" data-slide-to="es"></li>
+						<li data-target="carouselCountry" data-slide-to="it"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<h4 style="margin-bottom:-1rem">Ireland</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/ireland-flag.png" alt="ireland-flag">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:-1rem">United Kingdom</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/uk-flag.png" alt="uk-flag">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:-1rem">Spain</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/spain-flag.png" alt="spain-flag">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:-1rem">Italy</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/italy-flag.png" alt="italy-flag">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselCountry" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselCountry" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			  </div>
+			  <div class="col card-slot"> 
+				<div id="carouselPlace" class="carousel slide" data-interval="false">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselPlace" data-slide-to="mountain" class="active"></li>
+						<li data-target="#carouselPlace" data-slide-to="beach"></li>
+						<li data-target="#carouselPlace" data-slide-to="city"></li>
+						<li data-target="#carouselPlace" data-slide-to="home"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<h4 style="margin-bottom:-1rem">Mountain</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/mountain-place.png" alt="mountain-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Beach</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/beach-place.png" alt="beach-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">City</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/city-place.png" alt="city-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Home</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/homework-place.png" alt="home-place">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselPlace" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselPlace" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			  </div>
+			  <div class="w-100"></div>
+			  <div class="col card-slot">
+				<div id="carouselWeather" class="carousel slide" data-interval="false">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselWeather" data-slide-to="cold" class="active"></li>
+						<li data-target="#carouselWeather" data-slide-to="windy"></li>
+						<li data-target="#carouselWeather" data-slide-to="hot"></li>
+						<li data-target="#carouselWeather" data-slide-to="rainy"></li>
+						<li data-target="#carouselWeather" data-slide-to="mild"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<h4 style="margin-bottom:0rem">Cold</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/cold-weather.png" alt="cold-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Windy</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/coldwindy-weather.png" alt="windy-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Hot</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/hot-weather.png" alt="hot-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Rainy</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/mildrainy-weather.png" alt="rainy-place">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Mild</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/mild-weather.png" alt="mild-place">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselWeather" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselWeather" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			  </div>
+			  <div class="col card-slot">
+				<div id="carouselPollutant" class="carousel slide" data-interval="false">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselPollutant" data-slide-to="car" class="active"></li>
+						<li data-target="#carouselPollutant" data-slide-to="clean"></li>
+						<li data-target="#carouselPollutant" data-slide-to="dust"></li>
+						<li data-target="#carouselPollutant" data-slide-to="pollen"></li>
+						<li data-target="#carouselPollutant" data-slide-to="bacteria"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<h4 style="margin-bottom:0rem">Smoky air</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/car-pollutant.png" alt="car-pollutant">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Clean air</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/clean-pollutant.png" alt="clean-pollutant">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Dusty air</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/dust-pollutant.png" alt="dust-pollutant">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Pollen air</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/pollen-pollutant.png" alt="pollen-pollutant">
+						</div>
+						<div class="carousel-item">
+							<h4 style="margin-bottom:0rem">Bacteria air</h4>
+							<img class="d-block w-75" style="margin: 0 auto" src="assets/bacteria-pollutant.png" alt="bacteria-pollutant">
+						</div>	
+					</div>
+					<a class="carousel-control-prev" href="#carouselPollutant" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselPollutant" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			  </div>
+			  
+			</div>
+			<a href="#slide-5" class="btn btn-primary center" style="margin-top:1rem">Send to the doctor</a>
+		</div>
+    </div>
+    
+    <div id="slide-5">		
+		<h4 class="text-center" style="margin-top:-1rem">Answer from the doctor</h4>	
+		<div class="container-fluid" >
+            <div class="row justify-content-center">    
+				<div class="alert alert-warning" role="alert" id="notEnoughAlert" style="display:block;">
+				  Thanks for helping me linking the air quality data! I will follow the case closely 
+				  but the number of health events linked is not enough to reach a conclusion. 
+				  <p></p>
+				  Maybe you could link more health events for me ...	Let's say <p id="timesMore" style="display:inline">3</p> more!
+					<script>
+					  let count = 0;
+					  function countLinkedEvents() {
+						count++;
+						document.getElementById("timesMore").innerHTML = 3 - count;
+						console.log(count);
+						 if ( count == 3 ) {
+							document.getElementById("notEnoughAlert").style.display="none";
+							document.getElementById("successAlert").style.display="block";
+						} 
+					  }
+					</script>
+				  <p></p> 
+				  <a class="btn btn-primary center" href="#slide-4" role="button" onclick="countLinkedEvents()">Link more health events</a>
+				</div>
+				<div class="alert alert-success" role="alert" style="display:none;" id="successAlert">
+				  Thanks for helping me linking the air quality data! 
+				  <p></p>
+				  <b>First</b>, I will order the health events you linked for me.
+				  <p></p>
+				  <b>Second</b>, I will try to find other people with similar health events. 
+				  <p></p>
+				  <b>Third</b>, I will study if there is a common patter that would reveal the unknown 
+				  cause of X's illness. 
+				  <p></p>
+				  Knowing the cause would lead to better treatment and advice to 
+				  improve X's quality of life.				  
+				</div>
+				
+				<img src="assets/doctor-icon.png" alt="doctor-patient"  style="width:30%;" >
+
+            </div>
+		</div>
+		<p></p>		
+		<a class="btn btn-outline-primary center" href=" " role="button">Restart</a>
+		  
+    </div>
+    
+  </div>
+</div>
+
+</body>
+</html>
