@@ -1,2 +1,2 @@
-# linking-air-quality-health
+# linking-air-quality-health-game
 Activity for Researchers Night 2022
