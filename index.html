@@ -259,19 +259,26 @@
       <a href="#slide-2" class="btn btn-primary center" style="white-space: normal;">Start</a>
       <p></p>
       <div class="alert alert-info" role="alert">
-				  Number of games played:  <p id="stats" style="display:inline-block; margin-bottom:-1rem;"></p>			  
-	   </div> 
-		<script>
-			var r = new XMLHttpRequest();
-			r.addEventListener('load', function() {
-				document.querySelector('#stats').innerText = JSON.parse(this.responseText).count_unique
-			})
-			r.open('GET', 'https://navarral.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json')
-			r.send()
-		</script>
-		<script data-goatcounter="https://navarral.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+	      <img src="https://img.shields.io/endpoint?url=https://api.anayak.com.np/vcnt/?ID=linking-air-quality-health-game" alt="linking-air-quality-health-game">
+				  Number of games played:  <p id="stats" style="display:inline-block; margin-bottom:-1rem;"></p>
+	      <script>
+		var n = localStorage.getItem('on_load_counter');
 
-      
+		if (n === null) {
+		  n = 0;
+		}
+		n++;
+
+		localStorage.setItem("on_load_counter", n);
+
+		nums = n.toString().split('').map(Number);
+		document.getElementById('CounterVisitor').innerHTML = '';
+		for (var i of nums) {
+		  document.getElementById('CounterVisitor').innerHTML += '<span class="counter-item">' + i + '</span>';
+		}
+
+		</script>
+	   </div>       
     </div>
     
     <div id="slide-2">		
