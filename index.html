@@ -206,15 +206,20 @@
 			//height:25vh;
 	
 		}
+		.carousel .carousel-indicators li {background-color: #eaf2f8;}
+		.carousel .carousel-indicators li.active {background-color: #005A9C;}
 
-		.card-picker{
-			background-color: #f2f4f4;
-			margin:0.2rem;
-			font-size: 2rem;
-			line-height: 1.5;
-			border-radius: 10px;
-			height:18vh;
+
+		.carousel-control-next-icon:after {
+		  content: ">";
+		  color: #005A9C;
 		}
+
+		.carousel-control-prev-icon:after {
+		  content: "<";
+		  color: #005A9C;
+		}	
+		
 
 
 </style>
@@ -317,7 +322,7 @@
             <h4 class="text-center" style="margin-top:-1rem">Link air quality and health</h4>
 				<div class="input-group mb-3">
 				  <div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">Health event:</label>
+					<label class="input-group-text" for="inputGroupSelect01">Person:</label>
 				  </div>
 				  <select class="custom-select" id="inputGroupSelect01" class="form-control" required>
 					<option selected disabled value="">Choose...</option>
@@ -327,6 +332,11 @@
 					<option value="Anna">Anna</option>
 					<option value="George">George</option>
 				  </select>
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Health event:</label>
+				  </div>
 				  <select class="custom-select" id="inputGroupSelect02" class="form-control" required>
 					<option selected disabled>Choose...</option>
 					<option value="bad">Feeling bad</option>
