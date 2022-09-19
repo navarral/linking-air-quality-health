@@ -28,11 +28,11 @@
 
 		.slides {
 		  display: flex;
-		  overflow-x: auto;
+		  overflow-x: hidden;
 		  overflow-y:auto;
 		  scroll-snap-type: x mandatory;
 		  scroll-behavior: smooth;
-		  //-webkit-overflow-scrolling: touch;
+		  
 		  /*
 		  scroll-snap-points-x: repeat(300px);
 		  scroll-snap-type: mandatory;
@@ -322,11 +322,11 @@
     <div id="slide-3">
       <h4 class="text-center" style="margin-top:-1rem">How can doctors use air quality information for our health?</h4>
 		<p>
-		Doctors can link air quality information from our environment with health events to study the origin of the problems.
+		Doctors can link air quality information from our environment with health events (such as chest infection or heart attack) to study the origin of the problems.
 		</p>
 		<p>
 		But linking the information can be difficult. That is why, computer scientists help doctors by making 
-		the link easy for them.
+		the connections easy for them.
 		</p>	
 		<div class="container-fluid" >
             <div class="row justify-content-center">				
@@ -529,11 +529,11 @@
 							<img class="d-block w-75" style="margin: 0 auto" src="assets/dust-pollutant.png" alt="dust-pollutant">
 						</div>
 						<div class="carousel-item">
-							<h4 style="margin-bottom:0rem">Pollen air</h4>
+							<h4 style="margin-bottom:0rem">High pollen count</h4>
 							<img class="d-block w-75" style="margin: 0 auto" src="assets/pollen-pollutant.png" alt="pollen-pollutant">
 						</div>
 						<div class="carousel-item">
-							<h4 style="margin-bottom:0rem">Bacteria air</h4>
+							<h4 style="margin-bottom:0rem">Bacterial pollution</h4>
 							<img class="d-block w-75" style="margin: 0 auto" src="assets/bacteria-pollutant.png" alt="bacteria-pollutant">
 						</div>	
 					</div>
@@ -580,7 +580,7 @@
 				<div class="alert alert-success" role="alert" style="display:none;" id="successAlert">
 				  Thanks for your help! 
 				  <p></p>
-				  <b>First</b>, I will order the health events you linked for me.
+				  <b>First</b>, I will put the health events you linked for me in order.
 				  <p></p>
 				  <b>Second</b>, I will try to find other people with similar health events. 
 				  <p></p>
