@@ -28,11 +28,11 @@
 
 		.slides {
 		  display: flex;
-		  overflow-x: auto;
+		  overflow-x: hidden;
 		  overflow-y:auto;
 		  scroll-snap-type: x mandatory;
 		  scroll-behavior: smooth;
-		  -webkit-overflow-scrolling: touch;
+		  //-webkit-overflow-scrolling: touch;
 		  /*
 		  scroll-snap-points-x: repeat(300px);
 		  scroll-snap-type: mandatory;
@@ -210,18 +210,27 @@
 			//height:25vh;
 	
 		}
-		.carousel .carousel-indicators li {background-color: #eaf2f8;}
+		.carousel .carousel-indicators li {
+			background-color:  #aed6f1 ;
+			width: 1rem;
+			height: 1rem;
+			border-radius: 100%;
+		}
 		.carousel .carousel-indicators li.active {background-color: #005A9C;}
 
 
 		.carousel-control-next-icon:after {
 		  content: ">";
+		  margin: auto;
 		  color: #005A9C;
+		  font-size:4rem;
 		}
 
 		.carousel-control-prev-icon:after {
 		  content: "<";
+		  margin: auto;
 		  color: #005A9C;
+		  font-size:4rem;
 		}	
 		
 
@@ -329,7 +338,15 @@
     </div>
     <div id="slide-4">
 		<div class="container">
-            <h4 class="text-center" style="margin-top:-1rem">Link air quality and health</h4>
+		    <h4 class="text-center" style="margin-top:-1rem" id="countHeader">Link air quality and health - Link #0</h4>
+		    <script>
+				  let countNum = 0;
+				  function countHeader2() {
+					countNum++;
+					document.getElementById("countHeader").innerHTML = "Link air quality and health - Link #" + countNum;
+
+				  }
+			</script>
 				<div class="input-group mb-3">
 				  <div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Person:</label>
@@ -541,7 +558,7 @@
 		<div class="container-fluid" >
             <div class="row justify-content-center">    
 				<div class="alert alert-warning" role="alert" id="notEnoughAlert" style="display:block;">
-				  Thanks for helping me linking the air quality data! I will follow the case closely 
+				  Thanks for your help! I will follow the case closely,
 				  but the number of health events linked <b>is not enough to reach a conclusion</b>. 
 				  <p></p>
 				  Can you <b>link <p id="timesMore" style="display:inline">3</p> more</b> health events with different people for me?
@@ -558,10 +575,10 @@
 					  }
 					</script>
 				  <p></p> 
-				  <a class="btn btn-primary center" href="#slide-4" role="button" onclick="countLinkedEvents()">Link more health events</a>
+				  <a class="btn btn-primary center" href="#slide-4" role="button" onclick="countLinkedEvents();countHeader2()">Link more health events</a>
 				</div>
 				<div class="alert alert-success" role="alert" style="display:none;" id="successAlert">
-				  Thanks for helping me linking the air quality data! 
+				  Thanks for your help! 
 				  <p></p>
 				  <b>First</b>, I will order the health events you linked for me.
 				  <p></p>
